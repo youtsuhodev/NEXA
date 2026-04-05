@@ -16,6 +16,10 @@ cargo run -p nexa-cli -- check path/to/file.nxa
 
 Binaire : `nexa` (`crates/nexa-cli`).
 
+## Crates du workspace
+
+`nexa-cli`, `nexa-lexer`, `nexa-parser`, `nexa-ast`, `nexa-types`, `nexa-vm`, `nexa-errors`, `nexa-session`. D’autres passes (résolution de symboles, effets, MIR, LLVM, LSP) pourront être ajoutées comme crates séparées quand elles auront du code réel — pas de dossiers vides « pour la photo ».
+
 ## MVP actuel
 
 - Lexer, parser, AST

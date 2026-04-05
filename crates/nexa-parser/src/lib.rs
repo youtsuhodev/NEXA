@@ -248,7 +248,7 @@ impl Parser {
 
     fn expect(&mut self, kind: TokenKind) -> Result<Span, Diagnostic> {
         match self.bump() {
-            Some(t) if token_eq(&t.kind, &kind) => Ok(t.span),
+            Some(t) if t.kind == kind => Ok(t.span),
             Some(t) => Err(Diagnostic::spanned(
                 format!("expected {:?}, found {:?}", kind, t.kind),
                 t.span,
@@ -271,7 +271,7 @@ impl Parser {
 
     fn check(&self, kind: &TokenKind) -> bool {
         self.peek()
-            .map(|t| token_eq(&t.kind, kind))
+            .map(|t| t.kind == *kind)
             .unwrap_or(false)
     }
 
@@ -287,48 +287,5 @@ impl Parser {
         let t = self.tokens.get(self.idx).cloned()?;
         self.idx += 1;
         Some(t)
-    }
-}
-
-fn token_eq(a: &TokenKind, b: &TokenKind) -> bool {
-    match (a, b) {
-        (TokenKind::Fn, TokenKind::Fn) => true,
-        (TokenKind::Return, TokenKind::Return) => true,
-        (TokenKind::Int, TokenKind::Int) => true,
-        (TokenKind::String, TokenKind::String) => true,
-        (TokenKind::Void, TokenKind::Void) => true,
-        (TokenKind::Plus, TokenKind::Plus) => true,
-        (TokenKind::Minus, TokenKind::Minus) => true,
-        (TokenKind::Star, TokenKind::Star) => true,
-        (TokenKind::Slash, TokenKind::Slash) => true,
-        (TokenKind::LParen, TokenKind::LParen) => true,
-        (TokenKind::RParen, TokenKind::RParen) => true,
-        (TokenKind::LBrace, TokenKind::LBrace) => true,
-        (TokenKind::RBrace, TokenKind::RBrace) => true,
-        (TokenKind::Comma, TokenKind::Comma) => true,
-        (TokenKind::Semicolon, TokenKind::Semicolon) => true,
-        (TokenKind::Colon, TokenKind::Colon) => true,
-        (TokenKind::Arrow, TokenKind::Arrow) => true,
-        (TokenKind::Eof, TokenKind::Eof) => true,
-        (TokenKind::Ident(x), TokenKind::Ident(y)) => x == y,
-        (TokenKind::IntLit(x), TokenKind::IntLit(y)) => x == y,
-        (TokenKind::StringLit(x), TokenKind::StringLit(y)) => x == y,
-        _ => false,
-    }
-}
-
-trait ExprSpan {
-    fn span(&self) -> Span;
-}
-
-impl ExprSpan for Expr {
-    fn span(&self) -> Span {
-        match self {
-            Expr::IntLit(_, s) => *s,
-            Expr::StringLit(_, s) => *s,
-            Expr::Ident(_, s) => *s,
-            Expr::Binary { span, .. } => *span,
-            Expr::Call { span, .. } => *span,
-        }
     }
 }

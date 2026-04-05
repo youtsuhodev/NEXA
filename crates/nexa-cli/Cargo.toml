@@ -12,7 +12,6 @@ clap = { version = "4.5", features = ["derive"] }
 nexa-errors = { path = "../nexa-errors" }
 nexa-lexer = { path = "../nexa-lexer" }
 nexa-parser = { path = "../nexa-parser" }
-nexa-resolve = { path = "../nexa-resolve" }
 nexa-session = { path = "../nexa-session" }
 nexa-types = { path = "../nexa-types" }
 nexa-vm = { path = "../nexa-vm" }

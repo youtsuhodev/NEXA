@@ -125,15 +125,10 @@ dependencies = [
  "nexa-errors",
  "nexa-lexer",
  "nexa-parser",
- "nexa-resolve",
  "nexa-session",
  "nexa-types",
  "nexa-vm",
 ]
-
-[[package]]
-name = "nexa-effects"
-version = "0.1.0"
 
 [[package]]
 name = "nexa-errors"
@@ -147,35 +142,12 @@ dependencies = [
 ]
 
 [[package]]
-name = "nexa-llvm"
-version = "0.1.0"
-
-[[package]]
-name = "nexa-lsp"
-version = "0.1.0"
-
-[[package]]
-name = "nexa-mir"
-version = "0.1.0"
-
-[[package]]
-name = "nexa-ownership"
-version = "0.1.0"
-
-[[package]]
 name = "nexa-parser"
 version = "0.1.0"
 dependencies = [
  "nexa-ast",
  "nexa-errors",
  "nexa-lexer",
-]
-
-[[package]]
-name = "nexa-resolve"
-version = "0.1.0"
-dependencies = [
- "nexa-ast",
 ]
 
 [[package]]

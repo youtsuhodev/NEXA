@@ -72,3 +72,15 @@ pub enum Expr {
         span: Span,
     },
 }
+
+impl Expr {
+    pub fn span(&self) -> Span {
+        match self {
+            Expr::IntLit(_, s) => *s,
+            Expr::StringLit(_, s) => *s,
+            Expr::Ident(_, s) => *s,
+            Expr::Binary { span, .. } => *span,
+            Expr::Call { span, .. } => *span,
+        }
+    }
+}

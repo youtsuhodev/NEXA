@@ -2,7 +2,6 @@ use clap::{Parser, Subcommand};
 use nexa_errors::{format_diagnostic, Diagnostics};
 use nexa_lexer::Lexer;
 use nexa_parser::parse;
-use nexa_resolve::resolve;
 use nexa_session::SourceFile;
 use nexa_types::check_program;
 use nexa_vm::Vm;
@@ -78,8 +77,6 @@ fn drive(path: &PathBuf, run: bool) -> Result<(), ()> {
         print_diags(&file.path, &file.contents, &diags);
         return Err(());
     };
-
-    resolve(&ast);
 
     if !check_program(&ast, &mut diags) || !diags.is_empty() {
         print_diags(&file.path, &file.contents, &diags);

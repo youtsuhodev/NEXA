@@ -22,10 +22,8 @@ impl From<&TypeExpr> for Ty {
 
 pub fn check_program(program: &Program, diags: &mut Diagnostics) -> bool {
     let mut funcs: Vec<&FnDef> = Vec::new();
-    for item in &program.items {
-        if let Item::Fn(f) = item {
-            funcs.push(f);
-        }
+    for Item::Fn(f) in &program.items {
+        funcs.push(f);
     }
 
     let mut names: std::collections::HashMap<String, Span> = std::collections::HashMap::new();
@@ -47,7 +45,7 @@ pub fn check_program(program: &Program, diags: &mut Diagnostics) -> bool {
 
     if !main_def.params.is_empty() {
         diags.push(Diagnostic::spanned(
-            "`main` must take no parameters (MVP)".into(),
+            "`main` must take no parameters (MVP)",
             main_def.span,
         ));
         return false;
@@ -61,14 +59,14 @@ pub fn check_program(program: &Program, diags: &mut Diagnostics) -> bool {
 
     if main_ret != Ty::Void {
         diags.push(Diagnostic::spanned(
-            "`main` must return Void (MVP)".into(),
+            "`main` must return Void (MVP)",
             main_def.span,
         ));
         return false;
     }
 
     let mut ok = true;
-    for f in funcs {
+    for &f in &funcs {
         if !check_fn(f, &funcs, diags) {
             ok = false;
         }
@@ -246,20 +244,4 @@ fn check_call(
         }
     }
     Some(def.ret_ty.as_ref().map(Ty::from).unwrap_or(Ty::Void))
-}
-
-trait ExprSpan {
-    fn span(&self) -> Span;
-}
-
-impl ExprSpan for Expr {
-    fn span(&self) -> Span {
-        match self {
-            Expr::IntLit(_, s) => *s,
-            Expr::StringLit(_, s) => *s,
-            Expr::Ident(_, s) => *s,
-            Expr::Binary { span, .. } => *span,
-            Expr::Call { span, .. } => *span,
-        }
-    }
 }

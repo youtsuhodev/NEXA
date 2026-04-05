@@ -2,8 +2,6 @@
 
 mod compile;
 
-pub use compile::compile;
-
 use nexa_errors::Diagnostic;
 
 #[derive(Clone, Debug, PartialEq)]
