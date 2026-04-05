@@ -1,0 +1,23 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/nexa-cli",
+    "crates/nexa-lexer",
+    "crates/nexa-parser",
+    "crates/nexa-ast",
+    "crates/nexa-resolve",
+    "crates/nexa-types",
+    "crates/nexa-effects",
+    "crates/nexa-ownership",
+    "crates/nexa-mir",
+    "crates/nexa-vm",
+    "crates/nexa-llvm",
+    "crates/nexa-errors",
+    "crates/nexa-session",
+    "crates/nexa-lsp",
+]
+
+[workspace.package]
+edition = "2021"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/example/nexa"
